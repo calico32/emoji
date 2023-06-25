@@ -59,11 +59,6 @@ func main() {
 	fileServer := http.FileServer(gin.Dir(dataDir, false))
 
 	indexRedirect := os.Getenv("INDEX_REDIRECT")
-	if indexRedirect != "" {
-		e.GET("/", func(c *gin.Context) {
-			c.Redirect(302, indexRedirect)
-		})
-	}
 
 	e.POST("/", authenticated, upload)
 	e.DELETE("/:file", authenticated, delete)
@@ -82,6 +77,10 @@ func main() {
 		}
 
 		switch len(segments) {
+		case 0:
+			if indexRedirect != "" {
+				c.Redirect(302, indexRedirect)
+			}
 		case 1:
 			fileServer.ServeHTTP(c.Writer, c.Request)
 		case 2:
