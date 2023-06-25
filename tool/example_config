@@ -1,0 +1,3 @@
+BASE_URL="https://emoji.example.com"
+MANAGE_KEY="SECRET_MANAGE_KEY"
+ROFI_ARGS="-config ~/.config/rofi/config.grid.rasi"
